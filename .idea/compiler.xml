@@ -4,5 +4,11 @@
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="battle-ship.battleship-gradle.main" target="1.8" />
+      <module name="battle-ship.battleship-gradle.test" target="1.8" />
+      <module name="battleship-gradle.main" target="1.8" />
+      <module name="battleship-gradle.test" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
