@@ -5,8 +5,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class Main extends JFrame implements ActionListener {
+public class Main extends JFrame implements ActionListener, MouseListener {
 
     GameCanvas gameCanvas = new GameCanvas();
 
@@ -28,6 +30,7 @@ public class Main extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         gameCanvas.setFireBoard(new int[10][10]);
         gameCanvas.setPlayerBoard(new int[10][10]);
+        setResizable(false);
 
         // set up button
         startButton.addActionListener(this);
@@ -40,6 +43,8 @@ public class Main extends JFrame implements ActionListener {
 
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
         mainPanel.add(gameCanvas, BorderLayout.CENTER);
+        gameCanvas.addMouseListener(this);
+        addMouseListener(this);
 
         add(mainPanel);
         setVisible(true);
@@ -55,6 +60,7 @@ public class Main extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == startButton){
             startButton.setText("Reset Game");
+            startNewGame();
             gameCanvas.repaint();
         }
     }
@@ -65,6 +71,43 @@ public class Main extends JFrame implements ActionListener {
 
         fireBoard.createGame();
         gameCanvas.setFireBoard(fireBoard.getGameBoard());
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+        if(e.getY() <= 355) {
+            System.out.println("Mouse pressed at X:" + e.getX() / (gameCanvas.getTILE_WIDTH() + gameCanvas.getBorder()) +
+                    " Y:" + e.getY() / (gameCanvas.getTILE_WIDTH() + gameCanvas.getBorder()));
+            playerBoard.fireTorpedo(e.getX() / (gameCanvas.getTILE_WIDTH() + gameCanvas.getBorder()),
+                    e.getY() / (gameCanvas.getTILE_WIDTH() + gameCanvas.getBorder()), playerBoard.getHIT_SPACE());
+            gameCanvas.setPlayerBoard(playerBoard.getGameBoard());
+            gameCanvas.repaint();
+
+        }
+
+
+    }
+
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 }
 
