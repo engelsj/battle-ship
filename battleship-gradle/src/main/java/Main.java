@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Arrays;
 
 public class Main extends JFrame implements ActionListener, MouseListener {
 
@@ -16,9 +17,12 @@ public class Main extends JFrame implements ActionListener, MouseListener {
     JPanel buttonPanel = new JPanel();
 
     JButton startButton = new JButton("Start Game");
+    JLabel notificationWindow = new JLabel("Welcome to BattleShip");
 
     BattleshipBoard playerBoard = new BattleshipBoard();
     BattleshipBoard fireBoard = new BattleshipBoard();
+
+    int gamePhase = 0;
 
     public Main(){
 
@@ -35,6 +39,7 @@ public class Main extends JFrame implements ActionListener, MouseListener {
         // set up button
         startButton.addActionListener(this);
         buttonPanel.add(startButton);
+        buttonPanel.add(notificationWindow);
 
         // set up panels
         mainPanel.setLayout(new BorderLayout());
@@ -60,33 +65,52 @@ public class Main extends JFrame implements ActionListener, MouseListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == startButton){
             startButton.setText("Reset Game");
+            notificationWindow.setText("Welcome to BattleShip");
             startNewGame();
             gameCanvas.repaint();
+            playGame();
         }
+    }
+
+    public void playGame(){
+        gamePhase = 1;
+
     }
 
     public void startNewGame(){
         playerBoard.createGame();
         gameCanvas.setPlayerBoard(playerBoard.getGameBoard());
-
         fireBoard.createGame();
         gameCanvas.setFireBoard(fireBoard.getGameBoard());
+        gamePhase = 0;
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
-        if(e.getY() <= 355) {
-            System.out.println("Mouse pressed at X:" + e.getX() / (gameCanvas.getTILE_WIDTH() + gameCanvas.getBorder()) +
-                    " Y:" + e.getY() / (gameCanvas.getTILE_WIDTH() + gameCanvas.getBorder()));
-            playerBoard.fireTorpedo(e.getX() / (gameCanvas.getTILE_WIDTH() + gameCanvas.getBorder()),
-                    e.getY() / (gameCanvas.getTILE_WIDTH() + gameCanvas.getBorder()), playerBoard.getHIT_SPACE());
-            gameCanvas.setPlayerBoard(playerBoard.getGameBoard());
-            gameCanvas.repaint();
-
+        int row;
+        int col;
+        if(e.getY() <= 355 && gamePhase == 1) {
+            row = getFireCoordinate(e.getX());
+            col = getFireCoordinate(e.getY());
+            notificationWindow.setText(fireBoard.fireTorpedo(row, col, fireBoard.getHIT_SPACE()));
         }
 
+        else if(e.getY() >= 355 && gamePhase == 1){
+            row = getPlayerCoordinate(e.getX());
+            col = getPlayerCoordinate(e.getY());
+            notificationWindow.setText(playerBoard.placeShip(3, true, row, col - playerBoard.getGameBoard().length));
+        }
+        gameCanvas.setPlayerBoard(playerBoard.getGameBoard());
+        gameCanvas.setFireBoard(fireBoard.getGameBoard());
+        gameCanvas.repaint();
+    }
 
+    public int getFireCoordinate(int cord){
+        return cord / (gameCanvas.getTILE_WIDTH() + gameCanvas.getBorder());
+    }
+
+    public int getPlayerCoordinate(int cord){
+        return (cord - gameCanvas.getBorder() * 2) / (gameCanvas.getTILE_WIDTH() + (gameCanvas.getBorder()));
     }
 
 

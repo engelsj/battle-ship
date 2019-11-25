@@ -24,23 +24,72 @@ public class BattleshipBoard {
     }
 
     public String fireTorpedo(int row, int col, int action) {
-        if(row < 0 || row >= gameBoard.length || col < 0 || col >= gameBoard.length){
+        if(!inBound(row, col))
             return "Out of bounds!";
-        }
         if(gameBoard[row][col] != 1 || gameBoard[row][col] != 2) {
             if(gameBoard[row][col] == 3) {
-                gameBoard[row][col] = HIT_SPACE;
-                return "Hit a target at" + row + ", " + col;
+                gameBoard[row][col] = action;
+                return "Hit a target at " + row + ", " + col;
             }
             else {
-                gameBoard[row][col] = MISS_SPACE;
-                return "No target hit at" + row + ", " + col;
+                gameBoard[row][col] = action;
+                return "No target hit at " + row + ", " + col;
             }
         }
         else
             return "This tile has already been fired upon!";
-
     }
+
+    public String placeShip(int shipLength, boolean vertical, int row, int col){
+        if(canPlaceShip(shipLength, vertical, row, col)){
+            if(vertical) {
+                for (int i = 0; i < shipLength; i++)
+                    gameBoard[row][col - i] = SHIP_SPACE;
+                return "Ship Vertically Placed At " + row + " " + col;
+            }
+            else {
+                for (int i = 0; i < shipLength; i++)
+                    gameBoard[row + i][col] = SHIP_SPACE;
+                return "Ship Horizontally Placed at " + row + " " + col;
+            }
+        }
+        return "Unable to Place Ship at " + row + " " + col;
+    }
+
+    public boolean canPlaceShip(int shipLength, boolean vertical, int row ,int col) {
+
+        if(vertical) {
+            if(inBound(row, col - shipLength + 1))
+                if(checkEmptySpaceVertical(shipLength, row, col))
+                    return true;
+            return false;
+        }
+        else if(inBound(row + shipLength - 1, col))
+            if(checkEmptySpaceHorizontal(shipLength, row, col))
+                return true;
+        return false;
+    }
+
+    public boolean inBound(int row, int col){
+        return !(row < 0 || row >= gameBoard.length || col < 0 || col >= gameBoard.length);
+    }
+
+    public boolean checkEmptySpaceVertical(int shipLength, int row, int col){
+        for (int i = 0; i < shipLength; i++)
+            if( gameBoard[row][col - i] == SHIP_SPACE)
+                return false;
+            return true;
+    }
+
+    public boolean checkEmptySpaceHorizontal(int shipLength, int row, int col){
+        for (int i = 0; i < shipLength; i++)
+            if( gameBoard[row + i][col] == SHIP_SPACE)
+                return false;
+        return true;
+    }
+
+
+
 
 
 }
