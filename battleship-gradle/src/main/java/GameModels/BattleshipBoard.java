@@ -23,6 +23,10 @@ public class BattleshipBoard {
                 gameBoard[row][col] = EMPTY_SPACE;
     }
 
+    public void createAIBoard(){
+
+    }
+
     public String fireTorpedo(int row, int col, int action) {
         if(!inBound(row, col))
             return "Out of bounds!";

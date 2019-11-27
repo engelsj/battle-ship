@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="10561978-2ec6-419f-a550-7f81b5b99eb9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/battleship-gradle/src/main/java/GameModels/Fleet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/battleship-gradle/out/production/classes/GameModels/BattleshipBoard.class" beforeDir="false" afterPath="$PROJECT_DIR$/battleship-gradle/out/production/classes/GameModels/BattleshipBoard.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/battleship-gradle/out/production/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/battleship-gradle/out/production/classes/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/battleship-gradle/src/main/java/GameModels/BattleshipBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/battleship-gradle/src/main/java/GameModels/BattleshipBoard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/battleship-gradle/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/battleship-gradle/src/main/java/Main.java" afterDir="false" />
     </list>
@@ -45,11 +44,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/battleship-gradle/src/main/java/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="121" column="52" selection-start-line="121" selection-start-column="52" selection-end-line="121" selection-end-column="52" />
+            <state relative-caret-position="170">
+              <caret line="110" column="47" selection-start-line="110" selection-start-column="47" selection-end-line="110" selection-end-column="47" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#4839#4840#0" expanded="true" />
@@ -59,11 +58,27 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/battleship-gradle/src/main/java/GameModels/Fleet.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="705">
+              <caret line="47" lean-forward="true" selection-start-line="47" selection-end-line="47" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#829#830#0" expanded="true" />
+                <element signature="e#861#862#0" expanded="true" />
+                <element signature="e#1009#1010#0" expanded="true" />
+                <element signature="e#1095#1096#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/battleship-gradle/src/main/java/GameModels/BattleshipBoard.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="277">
-              <caret line="25" column="17" selection-start-line="25" selection-start-column="11" selection-end-line="25" selection-end-column="17" />
+            <state relative-caret-position="-56">
+              <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -107,13 +122,14 @@
         <option value="$PROJECT_DIR$/battleship-gradle/src/main/java/Graphics/GameCanvas.java" />
         <option value="$PROJECT_DIR$/battleship-gradle/src/main/java/GameModels/BattleshipBoard.java" />
         <option value="$PROJECT_DIR$/battleship-gradle/src/main/java/Main.java" />
+        <option value="$PROJECT_DIR$/battleship-gradle/src/main/java/GameModels/Fleet.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="25" />
-    <option name="y" value="37" />
-    <option name="width" value="1070" />
+    <option name="x" value="55" />
+    <option name="y" value="23" />
+    <option name="width" value="862" />
     <option name="height" value="1005" />
   </component>
   <component name="ProjectView">
@@ -121,7 +137,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -145,14 +160,14 @@
               <item name="battle-ship" type="462c0819:PsiDirectoryNode" />
               <item name="battleship-gradle" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="battleship" type="b2602c69:ProjectViewProjectNode" />
               <item name="battle-ship" type="462c0819:PsiDirectoryNode" />
               <item name="battleship-gradle" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -160,7 +175,7 @@
               <item name="battle-ship" type="462c0819:PsiDirectoryNode" />
               <item name="battleship-gradle" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="GameModels" type="462c0819:PsiDirectoryNode" />
             </path>
@@ -169,7 +184,7 @@
               <item name="battle-ship" type="462c0819:PsiDirectoryNode" />
               <item name="battleship-gradle" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="Graphics" type="462c0819:PsiDirectoryNode" />
             </path>
@@ -178,6 +193,7 @@
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -244,12 +260,12 @@
       <workItem from="1574523683519" duration="114000" />
       <workItem from="1574523824011" duration="21154000" />
       <workItem from="1574680010447" duration="2716000" />
-      <workItem from="1574856627121" duration="4779000" />
+      <workItem from="1574856627121" duration="7397000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29608000" />
+    <option name="totallyTimeSpent" value="32226000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -261,10 +277,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="86" width="1070" height="1005" extended-state="0" />
+    <frame x="-17" y="23" width="862" height="1005" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.27146003" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.27133656" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -273,7 +289,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49868995" visible="true" weight="0.18736617" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49868995" visible="true" weight="0.1916758" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4995633" weight="0.39955357" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -348,6 +364,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/battleship-gradle/src/main/java/GameModels/BattleshipBoard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-56">
+          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/battleship-gradle/src/main/java/Graphics/GameCanvas.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="553">
@@ -358,24 +384,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/battleship-gradle/src/main/java/GameModels/BattleshipBoard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="25" column="17" selection-start-line="25" selection-start-column="11" selection-end-line="25" selection-end-column="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/battleship-gradle/src/main/java/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="121" column="52" selection-start-line="121" selection-start-column="52" selection-end-line="121" selection-end-column="52" />
+        <state relative-caret-position="170">
+          <caret line="110" column="47" selection-start-line="110" selection-start-column="47" selection-end-line="110" selection-end-column="47" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#4839#4840#0" expanded="true" />
             <element signature="e#4922#4923#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/battleship-gradle/src/main/java/GameModels/Fleet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="705">
+          <caret line="47" lean-forward="true" selection-start-line="47" selection-end-line="47" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#829#830#0" expanded="true" />
+            <element signature="e#861#862#0" expanded="true" />
+            <element signature="e#1009#1010#0" expanded="true" />
+            <element signature="e#1095#1096#0" expanded="true" />
           </folding>
         </state>
       </provider>

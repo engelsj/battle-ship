@@ -1,4 +1,5 @@
 import GameModels.BattleshipBoard;
+import GameModels.Fleet;
 import Graphics.GameCanvas;
 
 import javax.swing.*;
@@ -7,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Arrays;
 
 public class Main extends JFrame implements ActionListener, MouseListener {
 
@@ -22,9 +22,7 @@ public class Main extends JFrame implements ActionListener, MouseListener {
     BattleshipBoard playerBoard = new BattleshipBoard();
     BattleshipBoard fireBoard = new BattleshipBoard();
 
-    int[] shipArray = new int[5];
-    String[] shipNames = {"Submarine", "Destroyer","Cruiser","Battleship","Aircraft Carrier "};
-    int shipLengthCounter;
+    Fleet playerFeet = new Fleet();
 
     int gamePhase = 0;
 
@@ -57,7 +55,6 @@ public class Main extends JFrame implements ActionListener, MouseListener {
 
         add(mainPanel);
         setVisible(true);
-
     }
 
 
@@ -82,15 +79,7 @@ public class Main extends JFrame implements ActionListener, MouseListener {
         gameCanvas.setPlayerBoard(playerBoard.getGameBoard());
         fireBoard.createGame();
         gameCanvas.setFireBoard(fireBoard.getGameBoard());
-
-        // reset ship array
-        shipArray[0] = 2;
-        shipArray[1] = 2;
-        shipArray[2] = 1;
-        shipArray[3] = 1;
-        shipArray[4] = 1;
-
-        shipLengthCounter = 0;
+        playerFeet = new Fleet();
         gamePhase = 1;
     }
 
@@ -119,19 +108,18 @@ public class Main extends JFrame implements ActionListener, MouseListener {
 
     public void placeShipOnBoard(int row, int col, boolean vertical){
 
-        System.out.println("Ship length counter " + shipLengthCounter);
-        System.out.println("Game Phase " + gamePhase);
-        if(shipArray[shipLengthCounter] > 0 &&
-                playerBoard.placeShip(shipLengthCounter + 1, vertical, row, col - playerBoard.getGameBoard().length))
+        if(playerFeet.getNumberOfShips() > 0 &&
+                playerBoard.placeShip(playerFeet.getShipLengthCounter() + 1,
+                        vertical, row, col - playerBoard.getGameBoard().length))
         {
-            notificationWindow.setText( shipNames[shipLengthCounter] + " Placed at X: " + row + " Y: " + col);
-            if(shipArray[shipLengthCounter] - 1 <= 0) {
-                shipLengthCounter++;
-                if(shipLengthCounter >= shipArray.length)
+            notificationWindow.setText(playerFeet.getShipName() + " Placed at X: " + row + " Y: " + col);
+            if(playerFeet.getNumberOfShips() - 1 <= 0) {
+                playerFeet.incrementShipLengthCounter();
+                if(playerFeet.getShipLengthCounter() >= playerFeet.getShipArray().length)
                     gamePhase = 2;
             }
             else
-                shipArray[shipLengthCounter] = shipArray[shipLengthCounter] - 1;
+                playerFeet.decrementShipArray();
         }
         else
             notificationWindow.setText("Unable to Place a Ship at X: " + row + " Y: " + col);
