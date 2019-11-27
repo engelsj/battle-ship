@@ -22,6 +22,10 @@ public class Main extends JFrame implements ActionListener, MouseListener {
     BattleshipBoard playerBoard = new BattleshipBoard();
     BattleshipBoard fireBoard = new BattleshipBoard();
 
+    int[] shipArray = new int[5];
+    String[] shipNames = {"Submarine", "Destroyer","Cruiser","Battleship","Aircraft Carrier "};
+    int shipLengthCounter;
+
     int gamePhase = 0;
 
     public Main(){
@@ -68,28 +72,33 @@ public class Main extends JFrame implements ActionListener, MouseListener {
             notificationWindow.setText("Welcome to BattleShip");
             startNewGame();
             gameCanvas.repaint();
-            playGame();
         }
     }
 
-    public void playGame(){
-        gamePhase = 1;
-
-    }
 
     public void startNewGame(){
+        // reset boards
         playerBoard.createGame();
         gameCanvas.setPlayerBoard(playerBoard.getGameBoard());
         fireBoard.createGame();
         gameCanvas.setFireBoard(fireBoard.getGameBoard());
-        gamePhase = 0;
+
+        // reset ship array
+        shipArray[0] = 2;
+        shipArray[1] = 2;
+        shipArray[2] = 1;
+        shipArray[3] = 1;
+        shipArray[4] = 1;
+
+        shipLengthCounter = 0;
+        gamePhase = 1;
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
         int row;
         int col;
-        if(e.getY() <= 355 && gamePhase == 1) {
+        if(e.getY() <= 355 && gamePhase == 2) {
             row = getFireCoordinate(e.getX());
             col = getFireCoordinate(e.getY());
             notificationWindow.setText(fireBoard.fireTorpedo(row, col, fireBoard.getHIT_SPACE()));
@@ -98,11 +107,35 @@ public class Main extends JFrame implements ActionListener, MouseListener {
         else if(e.getY() >= 355 && gamePhase == 1){
             row = getPlayerCoordinate(e.getX());
             col = getPlayerCoordinate(e.getY());
-            notificationWindow.setText(playerBoard.placeShip(3, true, row, col - playerBoard.getGameBoard().length));
+            if(e.getModifiers() == MouseEvent.BUTTON3_MASK && e.getClickCount() == 1)
+                placeShipOnBoard(row, col, false);
+            else
+                placeShipOnBoard(row, col, true);
         }
         gameCanvas.setPlayerBoard(playerBoard.getGameBoard());
         gameCanvas.setFireBoard(fireBoard.getGameBoard());
         gameCanvas.repaint();
+    }
+
+    public void placeShipOnBoard(int row, int col, boolean vertical){
+
+        System.out.println("Ship length counter " + shipLengthCounter);
+        System.out.println("Game Phase " + gamePhase);
+        if(shipArray[shipLengthCounter] > 0 &&
+                playerBoard.placeShip(shipLengthCounter + 1, vertical, row, col - playerBoard.getGameBoard().length))
+        {
+            notificationWindow.setText( shipNames[shipLengthCounter] + " Placed at X: " + row + " Y: " + col);
+            if(shipArray[shipLengthCounter] - 1 <= 0) {
+                shipLengthCounter++;
+                if(shipLengthCounter >= shipArray.length)
+                    gamePhase = 2;
+            }
+            else
+                shipArray[shipLengthCounter] = shipArray[shipLengthCounter] - 1;
+        }
+        else
+            notificationWindow.setText("Unable to Place a Ship at X: " + row + " Y: " + col);
+
     }
 
     public int getFireCoordinate(int cord){

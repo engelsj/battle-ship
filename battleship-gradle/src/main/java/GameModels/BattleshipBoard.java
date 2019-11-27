@@ -40,20 +40,20 @@ public class BattleshipBoard {
             return "This tile has already been fired upon!";
     }
 
-    public String placeShip(int shipLength, boolean vertical, int row, int col){
+    public boolean placeShip(int shipLength, boolean vertical, int row, int col){
         if(canPlaceShip(shipLength, vertical, row, col)){
             if(vertical) {
                 for (int i = 0; i < shipLength; i++)
                     gameBoard[row][col - i] = SHIP_SPACE;
-                return "Ship Vertically Placed At " + row + " " + col;
+                return true;
             }
             else {
                 for (int i = 0; i < shipLength; i++)
                     gameBoard[row + i][col] = SHIP_SPACE;
-                return "Ship Horizontally Placed at " + row + " " + col;
+                return true;
             }
         }
-        return "Unable to Place Ship at " + row + " " + col;
+        return false;
     }
 
     public boolean canPlaceShip(int shipLength, boolean vertical, int row ,int col) {
