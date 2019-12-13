@@ -10,8 +10,11 @@ import java.awt.*;
 @Setter
 public class GameCanvas extends Canvas {
 
+    // 2d array for the boards
     int[][] playerBoard;
     int[][] fireBoard;
+
+    // width of the tile and border
     final int TILE_WIDTH = 30;
     final int border = 5;
     public GameCanvas(){
@@ -21,6 +24,7 @@ public class GameCanvas extends Canvas {
     public void paint(Graphics g) {
         g.setColor(Color.BLACK);
         g.fillRect(0,0, getWidth(), getHeight());
+        // print out the top board
         for(int row = 0; row < fireBoard.length; row++)
             for (int col = 0; col < fireBoard[row].length; col++) {
                 if(fireBoard[row][col] == 3)
@@ -30,11 +34,12 @@ public class GameCanvas extends Canvas {
                 g.fillRect(row * (TILE_WIDTH + border) + border, col * (TILE_WIDTH + border) + border,
                         TILE_WIDTH, TILE_WIDTH);
             }
-
+        // border between the boards
         g.setColor(Color.GRAY);
         g.fillRect(0, ((TILE_WIDTH + border) * playerBoard.length) + border, getWidth(), border);
         int yOffset = ((TILE_WIDTH + border) * playerBoard.length  - border) + border * 3;
 
+        // print out the bottom board
         for(int row = 0; row < playerBoard.length; row++) {
             for (int col = 0; col < playerBoard[row].length; col++) {
                 g.setColor(checkTileValue(playerBoard[row][col]));
@@ -45,6 +50,7 @@ public class GameCanvas extends Canvas {
         }
     }
 
+    // codes for each of the tiles based on color
     public Color checkTileValue(int tileValue){
         if(tileValue == 0)
             return Color.BLUE;
