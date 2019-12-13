@@ -8,6 +8,7 @@ import lombok.Setter;
 public class BattleshipBoard {
     private String player;
     private  int[][] gameBoard = new int[10][10];
+    Fleet fleet;
     final Integer EMPTY_SPACE = 0;
     final Integer HIT_SPACE = 1;
     final Integer MISS_SPACE = 2;
@@ -18,33 +19,30 @@ public class BattleshipBoard {
     }
 
     public void createGame(){
+        fleet = new Fleet();
         for(int row = 0; row < gameBoard.length; row++)
             for(int col = 0; col < gameBoard[row].length; col++)
                 gameBoard[row][col] = EMPTY_SPACE;
     }
 
-    public void createAIBoard(){
-
-    }
-
-    public String fireTorpedo(int row, int col, int action) {
+    public int fireTorpedo(int row, int col) {
         if(!inBound(row, col))
-            return "Out of bounds!";
-        if(gameBoard[row][col] != 1 || gameBoard[row][col] != 2) {
-            if(gameBoard[row][col] == 3) {
-                gameBoard[row][col] = action;
-                return "Hit a target at " + row + ", " + col;
-            }
-            else {
-                gameBoard[row][col] = action;
-                return "No target hit at " + row + ", " + col;
-            }
+            return  0;
+        if(gameBoard[row][col] == SHIP_SPACE) {
+            gameBoard[row][col] = HIT_SPACE;
+            if(!fleet.checkActiveFleet())
+                return  4;
+            return 1;
+        }
+        if(gameBoard[row][col] == EMPTY_SPACE) {
+            gameBoard[row][col] = MISS_SPACE;
+            return  2;
         }
         else
-            return "This tile has already been fired upon!";
+            return 3;
     }
 
-    public boolean placeShip(int shipLength, boolean vertical, int row, int col){
+    public boolean placeShipOnBoard(int shipLength, boolean vertical, int row, int col){
         if(canPlaceShip(shipLength, vertical, row, col)){
             if(vertical) {
                 for (int i = 0; i < shipLength; i++)
@@ -91,6 +89,26 @@ public class BattleshipBoard {
                 return false;
         return true;
     }
+
+    public Integer placeShip(boolean vertical, int row, int col)
+    {
+        if(fleet.getNumberOfShips() > 0 && placeShipOnBoard(fleet.getShipLengthCounter() + 1, vertical, row, col - gameBoard.length))
+        {
+            if(fleet.getNumberOfShips() - 1 <= 0)
+            {
+                fleet.incrementShipLengthCounter();
+                if(fleet.getShipLengthCounter() >= fleet.getShipArray().length)
+                   return 2;
+                return 1;
+            }
+            else {
+                fleet.decrementShipArray();
+                return 1;
+            }
+        }
+        return  0;
+    }
+
 
 
 

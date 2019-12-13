@@ -23,7 +23,10 @@ public class GameCanvas extends Canvas {
         g.fillRect(0,0, getWidth(), getHeight());
         for(int row = 0; row < fireBoard.length; row++)
             for (int col = 0; col < fireBoard[row].length; col++) {
-                g.setColor(checkTileValue(fireBoard[row][col]));
+                if(fireBoard[row][col] == 3)
+                    g.setColor(Color.BLUE);
+                else
+                    g.setColor(checkTileValue(fireBoard[row][col]));
                 g.fillRect(row * (TILE_WIDTH + border) + border, col * (TILE_WIDTH + border) + border,
                         TILE_WIDTH, TILE_WIDTH);
             }

@@ -22,7 +22,7 @@ public class Main extends JFrame implements ActionListener, MouseListener {
     BattleshipBoard playerBoard = new BattleshipBoard();
     BattleshipBoard fireBoard = new BattleshipBoard();
 
-    Fleet playerFeet = new Fleet();
+    boolean firedUponBoard[][] = new boolean[10][10];
 
     int gamePhase = 0;
 
@@ -78,8 +78,8 @@ public class Main extends JFrame implements ActionListener, MouseListener {
         playerBoard.createGame();
         gameCanvas.setPlayerBoard(playerBoard.getGameBoard());
         fireBoard.createGame();
+        RandomlyPlaceShip();
         gameCanvas.setFireBoard(fireBoard.getGameBoard());
-        playerFeet = new Fleet();
         gamePhase = 1;
     }
 
@@ -87,43 +87,54 @@ public class Main extends JFrame implements ActionListener, MouseListener {
     public void mouseClicked(MouseEvent e) {
         int row;
         int col;
+        int response;
         if(e.getY() <= 355 && gamePhase == 2) {
             row = getFireCoordinate(e.getX());
             col = getFireCoordinate(e.getY());
-            notificationWindow.setText(fireBoard.fireTorpedo(row, col, fireBoard.getHIT_SPACE()));
+            response = fireBoard.fireTorpedo(row, col);
+            if(response == 0)
+                notificationWindow.setText("Out of bounds!");
+            else if(response == 1)
+                notificationWindow.setText("Hit a target at " + row + ", " + col);
+            else if(response == 2)
+                notificationWindow.setText("Target missed " + row + ", " + col);
+            else if(response == 3)
+                notificationWindow.setText("Already Fired Upon!");
+            else if(response == 4) {
+                notificationWindow.setText("You Destroyed the Fleet!");
+                gamePhase = 3;
+            }
+            randomlyFire();
         }
 
         else if(e.getY() >= 355 && gamePhase == 1){
             row = getPlayerCoordinate(e.getX());
             col = getPlayerCoordinate(e.getY());
-            if(e.getModifiers() == MouseEvent.BUTTON3_MASK && e.getClickCount() == 1)
-                placeShipOnBoard(row, col, false);
-            else
-                placeShipOnBoard(row, col, true);
+            if(e.getModifiers() == MouseEvent.BUTTON3_MASK && e.getClickCount() == 1) {
+                placeShipOnBoard(row, col, false, playerBoard);
+            }
+            else {
+                placeShipOnBoard(row, col, true, playerBoard);
+            }
+
         }
         gameCanvas.setPlayerBoard(playerBoard.getGameBoard());
         gameCanvas.setFireBoard(fireBoard.getGameBoard());
         gameCanvas.repaint();
     }
 
-    public void placeShipOnBoard(int row, int col, boolean vertical){
+    public void placeShipOnBoard(int row, int col, boolean vertical, BattleshipBoard board){
 
-        if(playerFeet.getNumberOfShips() > 0 &&
-                playerBoard.placeShip(playerFeet.getShipLengthCounter() + 1,
-                        vertical, row, col - playerBoard.getGameBoard().length))
-        {
-            notificationWindow.setText(playerFeet.getShipName() + " Placed at X: " + row + " Y: " + col);
-            if(playerFeet.getNumberOfShips() - 1 <= 0) {
-                playerFeet.incrementShipLengthCounter();
-                if(playerFeet.getShipLengthCounter() >= playerFeet.getShipArray().length)
-                    gamePhase = 2;
-            }
-            else
-                playerFeet.decrementShipArray();
+
+        int response = board.placeShip(vertical, row, col);
+        if(response == 2) {
+            notificationWindow.setText("Move to Fire Phase!");
+            gamePhase = 2;
         }
-        else
-            notificationWindow.setText("Unable to Place a Ship at X: " + row + " Y: " + col);
-
+        else if(response == 1)
+            notificationWindow.setText("Ship Placed at " + row + " " + col);
+        else if(response == 0)
+            notificationWindow.setText("Unable to Place a Ship Here");
     }
 
     public int getFireCoordinate(int cord){
@@ -133,7 +144,6 @@ public class Main extends JFrame implements ActionListener, MouseListener {
     public int getPlayerCoordinate(int cord){
         return (cord - gameCanvas.getBorder() * 2) / (gameCanvas.getTILE_WIDTH() + (gameCanvas.getBorder()));
     }
-
 
     @Override
     public void mousePressed(MouseEvent e) {
@@ -154,5 +164,51 @@ public class Main extends JFrame implements ActionListener, MouseListener {
     public void mouseExited(MouseEvent e) {
 
     }
+
+    public void RandomlyPlaceShip()
+    {
+        int response = 0;
+        int randomRow;
+        int randomCol;
+        boolean randomDirection;
+        while(response != 2) {
+            randomRow = getRandomCoordinate();
+            randomCol = getRandomCoordinate();
+            randomDirection = getRandomBoolean();
+            response = fireBoard.placeShip(randomDirection, randomRow, randomCol + 10);
+        }
+    }
+
+    public void randomlyFire()
+    {
+        boolean shotFired = false;
+        int randomRow;
+        int randomCol;
+        int response;
+        while(!shotFired)
+        {
+            randomRow = getRandomCoordinate();
+            randomCol = getRandomCoordinate();
+            if(!firedUponBoard[randomRow][randomCol]) {
+                firedUponBoard[randomRow][randomCol] = true;
+                response =  playerBoard.fireTorpedo(randomRow, randomCol);
+                shotFired = true;
+                if(response == 4)
+                {
+                    notificationWindow.setText("Your Fleet is Destroyed!");
+                    gamePhase = 3;
+                }
+            }
+        }
+    }
+
+    public boolean getRandomBoolean() {
+        return Math.random() < 0.5;
+    }
+
+    public int getRandomCoordinate(){
+        return (int)(Math.random() * (10));
+    }
+
 }
 

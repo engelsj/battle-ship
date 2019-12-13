@@ -10,6 +10,7 @@ public class Fleet {
     String[] shipNames = {"Submarine", "Destroyer", "Cruiser", "Battleship", "Aircraft Carrier "};
     int[] shipArray = new int[5];
     int shipLengthCounter;
+    int fleetHitCounter = 18;
 
     public Fleet() {
         shipArray[0] = 2;
@@ -39,6 +40,14 @@ public class Fleet {
     public void decrementShipArray(){
         if(InBounds())
             shipArray[shipLengthCounter] = shipArray[shipLengthCounter] - 1;
+    }
+
+    public boolean checkActiveFleet()
+    {
+        fleetHitCounter -= 1;
+        if(fleetHitCounter <= 0)
+            return false;
+        return true;
     }
 
     public boolean InBounds(){
